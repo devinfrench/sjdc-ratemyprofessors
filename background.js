@@ -5,7 +5,8 @@
  *  url   : required, but not validated
  *  data  : data to send in a POST request
  *
- * The callback function is called upon completion of the request */
+ * The callback function is called upon completion of the request
+ */
 chrome.runtime.onMessage.addListener(function(request, sender, callback) {
     if (request.action == "xhttp") {
         var xhttp = new XMLHttpRequest();
@@ -24,16 +25,3 @@ chrome.runtime.onMessage.addListener(function(request, sender, callback) {
         return true;
     }
 });
-
-function getXMLHttpRequest(method, url) {
-    var xhr = new XMLHttpRequest();
-    xhr.open(method, url, true);
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-            // innerText does not let the attacker inject HTML elements.
-            var response = xhr.responseText;
-            return response;
-        }
-    }
-    xhr.send();
-}

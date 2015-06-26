@@ -1,3 +1,4 @@
+// This block automatically executes after the page is finished loading
 var professors = new Array();
 var parent_fieldset = document.getElementsByTagName('fieldset');
 if (parent_fieldset.length > 0) {
@@ -13,18 +14,28 @@ if (parent_fieldset.length > 0) {
     }
     for (var i = 0; i < professors.length; i++) {
         displayRating(professors[i]);
-        console.log(professors[i]);
     }
 }
 
+/**
+ * Wrapper function to display the professor's rating in the course listings
+ *
+ * @param professor
+ */
 function displayRating(professor) {
+    console.log(professor);
     getTID(professor);
 }
 
+/**
+ * Performs a search on ratemyprofessor to get the professor's tid
+ *
+ * @param professor
+ */
 function getTID(professor) {
-    var last_name = professor.substring(0, professor.indexOf(","));
-    if (last_name.indexOf(" ") > -1) {
-        last_name = last_name.substring(0, last_name.indexOf(" "));
+    var last_name = professor.substring(0, professor.indexOf(','));
+    if (last_name.indexOf(' ') > -1) {
+        last_name = last_name.substring(0, last_name.indexOf(' '));
     }
     chrome.runtime.sendMessage({
         method: 'POST',
@@ -43,6 +54,13 @@ function getTID(professor) {
     });
 }
 
+/**
+ * Gets the professor's overall rating from ratemyprofessor
+ *
+ * @param professor
+ * @param tid
+ * @param last_name
+ */
 function getRating(professor, tid, last_name) {
     chrome.runtime.sendMessage({
         method: 'POST',
@@ -58,6 +76,13 @@ function getRating(professor, tid, last_name) {
     });
 }
 
+/**
+ * Adds the rating to the course listings page
+ *
+ * @param professor
+ * @param rating
+ * @param last_name
+ */
 function appendRating(professor, rating, last_name) {
     var parent_fieldset = document.getElementsByTagName('fieldset');
     if (parent_fieldset.length > 0) {
