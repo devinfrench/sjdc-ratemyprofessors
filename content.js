@@ -14,16 +14,17 @@ for (var i = 0; i < professors.length; i++) {
 }
 
 /**
- * Wrapper function to display the professor's rating in the course listings
+ * Wrapper function for the asynchronous function calls to display
+ * the professor's rating in the course listings
  */
- function displayRating(professor) {
+function displayRating(professor) {
     getTID(professor);
 }
 
 /**
  * Performs a search on ratemyprofessor to get the professor's tid
  */
- function getTID(professor) {
+function getTID(professor) {
     var last_name = professor.substring(0, professor.indexOf(','));
     last_name = last_name.indexOf(' ') > -1 ? last_name.substring(0, last_name.indexOf(' ')) : last_name;
     var formatted_name = last_name + ", " + professor.substring(professor.indexOf(',') + 2, professor.length);
@@ -50,7 +51,7 @@ for (var i = 0; i < professors.length; i++) {
 /**
  * Gets the professor's overall rating from ratemyprofessor
  */
- function getRating(professor, tid) {
+function getRating(professor, tid) {
     chrome.runtime.sendMessage({
         method: 'POST',
         action: 'xhttp',
@@ -65,7 +66,7 @@ for (var i = 0; i < professors.length; i++) {
 /**
  * Adds the rating to the course listings page
  */
- function appendRating(professor, rating, tid) {
+function appendRating(professor, rating, tid) {
     var professor_profile = "http://www.ratemyprofessors.com/ShowRatings.jsp?tid=" + tid;
     if (rating.length < 4 && rating !== "") {
         if (Number(rating) >= 4.0) {
