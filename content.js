@@ -3,11 +3,11 @@ var professors = [];
 var fieldsets = $('fieldset').toArray();
 if (fieldsets.length > 1) {
     for (var i = 1; i < fieldsets.length; i++) {
-       var professor = $(fieldsets[i]['innerHTML']).find('tr td:eq(4)').text();
-       if (professors.indexOf(professor) < 0) {
-        professors.push(professor);
+        var professor = $(fieldsets[i]['innerHTML']).find('tr td:eq(4)').text();
+        if (professors.indexOf(professor) < 0) {
+            professors.push(professor);
+        }
     }
-}
 }
 for (var i = 0; i < professors.length; i++) {
     displayRating(professors[i]);
