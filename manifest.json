@@ -1,6 +1,6 @@
 {
-  "name": "SJDC RateMyProfessor Ratings",
-  "description": "Shows professors' RateMyProfessor ratings in the class listings.",
+  "name": "SJDC RateMyProfessors Ratings",
+  "description": "Shows professors' RateMyProfessors ratings in the class listings.",
   "version": "1.1",
   "manifest_version": 2,
   "permissions": [
