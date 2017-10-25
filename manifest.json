@@ -1,17 +1,17 @@
 {
-  "name": "SJDC RateMyProfessors Ratings",
-  "description": "Shows professors' RateMyProfessors ratings in the class listings.",
-  "version": "1.1",
-  "manifest_version": 2,
-  "permissions": [
-  "*://*/*"
-  ],
-  "content_scripts": [ {
-    "js": [ "jquery-2.1.4.min.js", "content.js" ],
-    "matches": [ "https://secure.deltacollege.edu/student/schedule/sections*", "http://secure.deltacollege.edu/student/schedule/sections*"]
-    }],
-    "background": {
-      "scripts": ["background.js"],
-      "persistent": false
-    }
-  }
+	"name": "SJDC RateMyProfessors Ratings",
+	"description": "Displays professors' RateMyProfessors ratings in the online course listings for San Joaquin Delta College.",
+	"version": "2.0",
+	"manifest_version": 2,
+	"permissions": [
+		"*://*.ratemyprofessors.com/*"
+	],
+	"content_scripts": [ {
+		"js": [ "ratings.js" ],
+		"matches": [ "*://classes.deltacollege.edu/schedule/sections*"]
+	}],
+	"background": {
+		"scripts": ["background.js"],
+		"persistent": false
+	}
+}
