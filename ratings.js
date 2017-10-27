@@ -1,9 +1,9 @@
 const professors = document.querySelectorAll("body > div > div.panel-group > div.panel > div.panel-body > table > tbody > tr > td:nth-child(5)");
 Array.from(professors).forEach(function(professor) {
 	getProfessorTID(professor).then(function(tid) {
-		getProfessorRating(tid).then(function(rating) {
-			embedRating(professor, rating);
-		});
+		 return getProfessorRating(tid);
+	}).then(function(rating) {
+		embedRating(professor, rating);
 	});
 });
 
@@ -18,12 +18,16 @@ function getProfessorTID(professor) {
 			data: `queryBy=teacherName&schoolName=san+joaquin+delta+college&queryoption=HEADER&query=${lastName}&facetSearch=true`
 		}, function(response) {
 			if (response) {
-				const regex = new RegExp(`<li class="listing PROFESSOR">[\\s\\S]*${lastName}\\W?,\\W?${firstInitial}[\\s\\S]*<\/li>`, "ig");
-				const element = response.match(regex);
-				const tid = element ? element[0].match(/[0-9]{1,}/g) : null;
-				resolve(tid ? tid[0] : null);
-			} else {
-				reject();
+				const regex = new RegExp(lastName + "\\W?,\\W?" + firstInitial, "ig");
+				const doc = document.createElement("html");
+				doc.innerHTML = response;
+				const anchors = doc.getElementsByTagName("a");
+				Array.from(anchors).forEach(function(anchor) {
+					if (anchor.innerHTML.match(regex)) {
+					    const tid = anchor.getAttribute("href").match(/[0-9]{1,}/g);
+						resolve(tid ? tid[0] : null);
+					}
+				});
 			}
 		});
 	});
@@ -40,8 +44,6 @@ function getProfessorRating(tid) {
 				const element = response.match(/<div class="grade" title="">[0-9.]{3}<\/div>/g);
 				const rating = element ? element[0].match(/[0-9.]{3}/g) : null;
 				resolve(rating ? rating[0] : null);
-			} else {
-				reject();
 			}
 		});
 	});
